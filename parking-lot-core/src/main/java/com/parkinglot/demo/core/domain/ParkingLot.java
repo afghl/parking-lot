@@ -30,10 +30,9 @@ public class ParkingLot implements VehicleEntrance, VehicleExit {
         }
 
         ParkingTicket ticket = ParkingTicket.getTicket(time);
-
-        Parking parking = Parkings.of(vehicle, parkingSpot, ticket);
         parkingSpot.parkCar(vehicle);
-        return parking;
+
+        return Parkings.of(vehicle, parkingSpot, ticket);
     }
 
     @Override
