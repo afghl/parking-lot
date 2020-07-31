@@ -1,6 +1,7 @@
 package com.parkinglot.demo.core;
 
-import com.parkinglot.demo.core.model.ParkingLot;
+import com.parkinglot.demo.core.domain.ParkingFloor;
+import com.parkinglot.demo.core.domain.ParkingLot;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,12 @@ public class ParkingLotFactory {
     // TODO: user build pattern
     public static ParkingLot build(int floorSize) {
         ParkingLot parkingLot = new ParkingLot();
-        parkingLot.setParkingFloors(new ArrayList<>());
+
+        int i = floorSize;
+        while (i-- > 0) {
+            ParkingFloor floor = ParkingFloor.buildDefault();
+            parkingLot.addParkingFloor(floor);
+        }
         return parkingLot;
     }
 }

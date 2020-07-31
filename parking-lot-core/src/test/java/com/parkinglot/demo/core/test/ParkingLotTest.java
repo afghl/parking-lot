@@ -1,9 +1,15 @@
 package com.parkinglot.demo.core.test;
 
-import com.parkinglot.demo.core.model.ParkingLot;
+import com.parkinglot.demo.core.domain.ParkingLot;
 import com.parkinglot.demo.core.ParkingLotFactory;
+import com.parkinglot.demo.core.domain.parking.Parking;
+import com.parkinglot.demo.core.domain.vehicle.Vehicle;
+import com.parkinglot.demo.core.domain.vehicle.VehicleType;
+import com.parkinglot.demo.core.exception.NoParkingSpotException;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.time.LocalDateTime;
 
 public class ParkingLotTest {
     @Test
@@ -13,9 +19,24 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void oneParkingLotShouldHaveMultiFloors() {
+    public void canParkCars() throws NoParkingSpotException {
         ParkingLot parkingLot = ParkingLotFactory.build(5);
-        Assert.assertNotNull(parkingLot.getParkingFloors());
-//        Assert.assertEquals(parkingLot.getParkingFloors().size(), 5);
+        Vehicle vehicle = new Vehicle();
+        vehicle.setVehicleType(VehicleType.van);
+        Parking parking = parkingLot.enter(vehicle, LocalDateTime.now());
+        Assert.assertNotNull(parking);
+        Assert.assertNotNull(parking.getTicket());
+    }
+
+    @Test(expected = NoParkingSpotException.class)
+    public void hasLimit() throws NoParkingSpotException {
+        ParkingLot parkingLot = ParkingLotFactory.build(1);
+
+        int carNums = 1000;
+        while (carNums-- > 0) {
+            Vehicle vehicle = new Vehicle();
+            vehicle.setVehicleType(VehicleType.van);
+            parkingLot.enter(vehicle, LocalDateTime.now());
+        }
     }
 }
