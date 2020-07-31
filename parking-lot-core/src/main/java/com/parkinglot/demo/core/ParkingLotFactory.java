@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class ParkingLotFactory {
 
-    // TODO: user build pattern
     public static ParkingLot build(int floorSize) {
         ParkingLot parkingLot = new ParkingLot();
 

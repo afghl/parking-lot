@@ -1,7 +1,6 @@
 package com.parkinglot.demo.core.domain.parkingspot;
 
 import com.parkinglot.demo.core.domain.ParkingFloor;
-import com.parkinglot.demo.core.domain.SpotStatus;
 import com.parkinglot.demo.core.domain.vehicle.Vehicle;
 
 public abstract class ParkingSpot {
@@ -21,5 +20,12 @@ public abstract class ParkingSpot {
     public void parkCar(Vehicle vehicle) {
         this.vehicle = vehicle;
         this.status = SpotStatus.occupied;
+    }
+
+    public Vehicle release() {
+        Vehicle v = this.vehicle;
+        this.vehicle = null;
+        this.status = SpotStatus.available;
+        return v;
     }
 }

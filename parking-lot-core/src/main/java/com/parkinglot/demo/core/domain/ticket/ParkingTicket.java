@@ -13,7 +13,13 @@ public class ParkingTicket {
 
     private LocalDateTime startTime;
 
+    private LocalDateTime payTime;
+
     private ParkingTicket() {}
+
+    public boolean isPaid() {
+        return payTime != null;
+    }
 
     public static ParkingTicket getTicket(LocalDateTime startTime) {
         ParkingTicket t = new ParkingTicket();

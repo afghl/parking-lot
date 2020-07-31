@@ -6,6 +6,7 @@ import com.parkinglot.demo.core.domain.parking.Parking;
 import com.parkinglot.demo.core.domain.vehicle.Vehicle;
 import com.parkinglot.demo.core.domain.vehicle.VehicleType;
 import com.parkinglot.demo.core.exception.NoParkingSpotException;
+import com.parkinglot.demo.core.exception.TicketNotPaidException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ public class ParkingLotTest {
     }
 
     @Test(expected = NoParkingSpotException.class)
-    public void hasLimit() throws NoParkingSpotException {
+    public void parkingHasLimit() throws NoParkingSpotException {
         ParkingLot parkingLot = ParkingLotFactory.build(1);
 
         int carNums = 1000;
@@ -38,5 +39,14 @@ public class ParkingLotTest {
             vehicle.setVehicleType(VehicleType.van);
             parkingLot.enter(vehicle, LocalDateTime.now());
         }
+    }
+
+    @Test(expected = TicketNotPaidException.class)
+    public void cannotExitUnlessPaid() throws NoParkingSpotException, TicketNotPaidException {
+        ParkingLot parkingLot = ParkingLotFactory.build(5);
+        Vehicle vehicle = new Vehicle();
+        vehicle.setVehicleType(VehicleType.van);
+        Parking parking = parkingLot.enter(vehicle, LocalDateTime.now());
+        Vehicle car = parkingLot.exit(parking, LocalDateTime.now().plusHours(3));
     }
 }

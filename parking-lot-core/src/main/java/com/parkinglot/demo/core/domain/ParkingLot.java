@@ -6,6 +6,7 @@ import com.parkinglot.demo.core.domain.parkingspot.ParkingSpot;
 import com.parkinglot.demo.core.domain.ticket.ParkingTicket;
 import com.parkinglot.demo.core.domain.vehicle.Vehicle;
 import com.parkinglot.demo.core.exception.NoParkingSpotException;
+import com.parkinglot.demo.core.exception.TicketNotPaidException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,8 +37,11 @@ public class ParkingLot implements VehicleEntrance, VehicleExit {
     }
 
     @Override
-    public Vehicle exit(Parking ticket, LocalDateTime time) {
-        return null;
+    public Vehicle exit(Parking parking, LocalDateTime time) throws TicketNotPaidException {
+        if (!parking.getTicket().isPaid()) {
+            throw new TicketNotPaidException();
+        }
+        return parking.getCar();
     }
 
     public void addParkingFloor(ParkingFloor floor) {
