@@ -15,6 +15,11 @@ public class ParkingTicket {
 
     private LocalDateTime payTime;
 
+    /**
+     * real paid fee
+     */
+    private Double paidFee;
+
     private ParkingTicket() {}
 
     public boolean isPaid() {

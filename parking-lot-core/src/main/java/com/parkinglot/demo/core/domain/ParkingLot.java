@@ -44,6 +44,14 @@ public class ParkingLot implements VehicleEntrance, VehicleExit {
         return parking.getCar();
     }
 
+    @Override
+    public Vehicle payAndExit(Parking parking, LocalDateTime time) {
+        if (!parking.getTicket().isPaid()) {
+            
+        }
+        return parking.getCar();
+    }
+
     public void addParkingFloor(ParkingFloor floor) {
         assert floor != null;
         parkingFloors.add(floor);

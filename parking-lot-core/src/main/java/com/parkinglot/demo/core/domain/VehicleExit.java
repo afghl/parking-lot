@@ -10,4 +10,6 @@ import java.time.LocalDateTime;
 public interface VehicleExit {
 
     Vehicle exit(Parking parking, LocalDateTime time) throws TicketNotPaidException;
+
+    Vehicle payAndExit(Parking parking, LocalDateTime time);
 }
